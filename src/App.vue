@@ -1,30 +1,26 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div>
+    <!-- <router-link to="/home">Go to Home</router-link>
+  <router-link to="/about">Go to About</router-link> -->
+    <router-view></router-view>
+    <play-controller />
+  </div>
 </template>
+<script>
+import PlayController from "components/content/playcontroller/PlayController.vue";
+export default {
+  components: {
+    PlayController,
+  },
+};
+</script>
+<style lang="less" scoped>
+@import "assets/css/base.css";
+/* 解决页面左右溢出 */
+// html,
+// body {
+//   max-width: 100%;
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+//   overflow-x: hidden;
+// }
 </style>
