@@ -8,20 +8,20 @@
     </div>
     <div class="tips">登录体验更多精彩</div>
     <div class="phone">
-      <input type="number" placeholder="输入手机号" v-model="logininfo.phone" />
+      <input type="number" placeholder="输入手机号" v-model="phone" />
     </div>
-    <div class="pass">
+    <!-- <div class="pass">
       <input type="password" placeholder="输入密码" v-model="logininfo.pass" />
-    </div>
-    <div class="login" @click="login()">立即登录</div>
-    <div class="forget">忘记密码 <i class="iconfont icon-gengduo"></i></div>
+    </div> -->
+    <div class="login" @click="sendCode()">下一步</div>
+    <!-- <div class="forget">忘记密码 <i class="iconfont icon-gengduo"></i></div> -->
   </div>
 </template>
 <script>
-import { reactive } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { LoginByPhone } from "network/login.js";
+import { sendAuthCode } from "network/login.js";
 
 export default {
   name: "LoginByPhone",
@@ -31,19 +31,21 @@ export default {
     const router = useRouter();
     const setUserLogin = () => store.commit("setUserLogin");
     // 绑定input的账号信息
-    let logininfo = reactive({});
-    function login() {
-      setUserLogin();
-      router.push("/me");
-      // console.log("--", logininfo.phone);
-      // console.log("--", logininfo.pass);
-      LoginByPhone(logininfo.phone, logininfo.pass).then((res) => {
-        console.log(res);
+    let phone = ref(null);
+    function sendCode() {
+      sendAuthCode(phone.value).then((res) => {
+        // 成功发送验证码后
+        if (res.data.code === 200) {
+          router.push({
+            path: "/login/sendcode",
+            query: { phone: phone.value },
+          });
+        }
       });
     }
     return {
-      logininfo,
-      login,
+      phone,
+      sendCode,
     };
   },
 };

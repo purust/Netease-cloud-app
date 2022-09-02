@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// 默认的get请求
 // eslint-disable-next-line prettier/prettier
 export function request (config) {
   // 1.创建axios的实例
@@ -26,7 +27,17 @@ export function request (config) {
       console.log(err);
     }
   );
-
+  console.log("instance", instance);
   // 3.发送真正的网络请求
+  return instance(config);
+}
+
+// 发送post请求
+export function requestPost(config) {
+  const instance = axios.create({
+    baseURL: "http://localhost:3000",
+    timeout: 5000,
+    method: "post",
+  });
   return instance(config);
 }

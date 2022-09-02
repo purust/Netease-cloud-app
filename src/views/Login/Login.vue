@@ -7,7 +7,7 @@
       上次登录
       <div class="in-corner"></div>
     </div>
-    <div class="phonelogin" @click="$router.push('/login/cellphone')">
+    <div class="phonelogin" @click="$router.push('/login/phone')">
       手机号登录
     </div>
     <div class="license">

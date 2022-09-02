@@ -47,8 +47,12 @@ const routes = [
     // ],
   },
   {
-    path: "/login/cellphone",
+    path: "/login/phone",
     component: () => import("views/Login/LoginByPhone.vue"),
+  },
+  {
+    path: "/login/sendcode",
+    component: () => import("views/Login/VerCode.vue"),
   },
   {
     path: "/me",

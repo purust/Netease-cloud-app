@@ -7,7 +7,7 @@ export default createStore({
     lyric: "",
     currentTime: 0,
     user: {
-      isLogin: true,
+      isLogin: false,
       name: "purust",
     },
   },

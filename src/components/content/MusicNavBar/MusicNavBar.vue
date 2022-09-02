@@ -8,8 +8,16 @@
       </template>
       <template v-slot:center>
         <div class="center">
-          <span @click="$router.push('/me')">我的</span>
-          <span class="active">发现</span>
+          <span
+            :class="{ active: '/me' == $route.path }"
+            @click="$router.push('/me')"
+            >我的</span
+          >
+          <span
+            :class="{ active: '/home' == $route.path }"
+            @click="$router.push('/home')"
+            >发现</span
+          >
           <span>云村</span>
           <span>视频</span>
         </div>
@@ -29,11 +37,13 @@
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
+// import { reactive } from "vue";
 export default {
   name: "MusicNavBar",
   components: {
     NavBar,
   },
+  setup() {},
 };
 </script>
 <style lang="less" scoped>
