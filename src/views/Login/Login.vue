@@ -24,10 +24,6 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Login",
-  data() {
-    return {};
-  },
-  methods: {},
 };
 </script>
 <style lang="less" scoped>

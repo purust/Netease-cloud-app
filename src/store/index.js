@@ -6,10 +6,6 @@ export default createStore({
     playCurrentIndex: 0,
     lyric: "",
     currentTime: 0,
-    user: {
-      isLogin: false,
-      name: "purust",
-    },
   },
   // 类似store的计算属性,
   getters: {
@@ -70,10 +66,6 @@ export default createStore({
     addPlaySong(state, value) {
       // 在当前播放的index前加入一个歌曲
       state.playlist.splice(state.playCurrentIndex, 0, value);
-    },
-    setUserLogin(state) {
-      console.log("改变成功");
-      state.user.isLogin = true;
     },
   },
   actions: {},

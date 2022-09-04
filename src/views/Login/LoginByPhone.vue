@@ -19,22 +19,19 @@
 </template>
 <script>
 import { ref } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+
 import { sendAuthCode } from "network/login.js";
 
 export default {
   name: "LoginByPhone",
   setup() {
-    // 获取store
-    const store = useStore();
     const router = useRouter();
-    const setUserLogin = () => store.commit("setUserLogin");
+
     // 绑定input的账号信息
     let phone = ref(null);
     function sendCode() {
       sendAuthCode(phone.value).then((res) => {
-        // 成功发送验证码后
         if (res.data.code === 200) {
           router.push({
             path: "/login/sendcode",

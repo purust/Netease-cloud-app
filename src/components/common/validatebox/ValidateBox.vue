@@ -45,27 +45,28 @@
   </div>
 </template>
 <script>
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 export default {
   name: "VerCode",
   emits: ["completeInput"],
   setup() {
-    let code = "";
+    // let code = "";
     let pasteResult = [];
-    let input = computed(() => {
-      if (code && Array.isArray(code) && code.length === 4) {
-        return code;
-      } else if (/^\d{4}$/.test(code.toString())) {
-        return code.toString().split("");
-      } else if (pasteResult.length === 4) {
-        return pasteResult;
-      } else {
-        return new Array(4);
-      }
-    });
+    let input = reactive(new Array(4));
+    // let input = computed(() => {
+    //   if (code && Array.isArray(code) && code.length === 4) {
+    //     return code;
+    //   } else if (/^\d{4}$/.test(code.toString())) {
+    //     return code.toString().split("");
+    //   } else if (pasteResult.length === 4) {
+    //     return pasteResult;
+    //   } else {
+    //     return new Array(4);
+    //   }1235
+    // });
     return {
       input,
-      code,
+      // code,
       pasteResult,
     };
   },
@@ -86,6 +87,7 @@ export default {
       // index的值就是标签元素绑定的data-index， *1是为了将字符串类型转为整型
       let el = e.target;
       if (e.key === "Backspace") {
+        console.log("删除", index, this.input[index]);
         if (this.input[index].length > 0) {
           this.input[index] = "";
         } else {
@@ -112,7 +114,7 @@ export default {
           el.parentElement.children[this.input.length - 1].focus();
       } else if (e.key === "ArrowLeft") {
         if (el.previousElementSibling) {
-          el.previousElementSibling.focus();
+          el.nextElementSibling.focus();
         }
       } else if (e.key === "ArrowRight") {
         if (el.nextElementSibling) {

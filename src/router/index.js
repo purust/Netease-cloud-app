@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import store from "store/index.js";
-// import Home from "views/Home/Home.vue";
 
 const routes = [
   {
@@ -58,9 +56,13 @@ const routes = [
     path: "/me",
     name: "me",
     beforeEnter: (to, from, next) => {
-      if (store.state.user.isLogin) {
+      // sessionStorage.setItem("isLogin", "true");
+      if (sessionStorage.getItem("isLogin") == "true") {
         next();
-      } else {
+      }
+      // if (store.state.user.isLogin) {
+      // }
+      else {
         next({ path: "/login" });
       }
     },
