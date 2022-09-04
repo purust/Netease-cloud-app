@@ -16,21 +16,29 @@
 <script>
 import ValidateBox from "components/common/validatebox/ValidateBox.vue";
 import { verifyAuthCode } from "network/login.js";
+import { useRouter, useRoute } from "vue-router";
 export default {
   components: { ValidateBox },
   name: "VerCode",
-  methods: {
-    // 输入后进行验证
-    completeInput(value) {
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+
+    // 完成验证码输入后的操作
+    function completeInput(value) {
       let code = value.join("") * 1;
-      verifyAuthCode(this.$route.query.phone, code).then((res) => {
+      verifyAuthCode(route.query.phone, code).then((res) => {
         if (res.data.code === 200) {
-          this.$router.push("/me");
+          sessionStorage.setItem("isLogin", "true");
+          router.push("/me");
         }
       });
-    },
+    }
+
+    return {
+      completeInput,
+    };
   },
-  setup() {},
 };
 </script>
 <style lang="less" scoped>
