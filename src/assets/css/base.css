@@ -4,8 +4,8 @@
 :root {
 	/* #666 */
 	--color-text: #808080;
-	--color-high-text: #ff5777;
-	--color-tint: #ff8198;
+	--color-high-text: #e70012;
+	--color-tint: #ec4141;
 	--color-background: #fff;
 	--font-size: 14px;
 	--line-height: 1.5;

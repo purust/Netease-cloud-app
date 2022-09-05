@@ -4,7 +4,8 @@
     <music-nav-bar />
     <home-swiper :banners="banners">{{banners}}</home-swiper>
     <icon-list />
-    <music-list :musicList="data.musicList" />
+    <rec-list :recList="data.recList" />
+    <rec-song :recSong="data.recSong"/>
   </div>
 </template>
 
@@ -13,10 +14,14 @@ import MusicNavBar from "components/content/MusicNavBar/MusicNavBar.vue";
 
 import HomeSwiper from "./childComps/HomeSwiper.vue";
 import IconList from "./childComps/IconList.vue";
-import MusicList from "./childComps/MusicList.vue";
-// @ is an alias to /src
-
-import { getSwiperImage, getMusicList } from "network/home.js";
+import RecList from "./childComps/RecList.vue";
+import RecSong from "./childComps/RecSong.vue";
+import {
+  getSwiperImage,
+  getRecList,
+  getHome,
+  recSongItem,
+} from "network/home.js";
 
 import { reactive } from "vue";
 export default {
@@ -26,19 +31,32 @@ export default {
     MusicNavBar,
     HomeSwiper,
     IconList,
-    MusicList,
+    RecList,
+    RecSong,
   },
-  // eslint-disable-next-line prettier/prettier
-  setup () {
+  setup() {
     //1. 轮播图组件
     let banners = reactive([]);
     getSwiperImage(1).then((res) => {
       banners.push(...res.banners);
     });
-    //2.推荐歌单组件
-    let data = reactive({ musicList: [] });
-    getMusicList().then((res) => {
-      data.musicList = res.result;
+    //2.推荐歌单
+    let data = reactive({});
+    getRecList().then((res) => {
+      data.recList = res.result;
+    });
+    // 推荐歌曲
+    getHome().then((res) => {
+      // 一个长度为4的数组
+      let list = res.data.blocks[1].creatives;
+      data.recSong = new Array();
+      for (let i = 0; i < list.length; i++) {
+        let temp = [];
+        for (let j = 0; j < list[i].resources.length; j++) {
+          temp.push(new recSongItem(list[i].resources[j]));
+        }
+        data.recSong.push(temp);
+      }
     });
     return {
       banners,
