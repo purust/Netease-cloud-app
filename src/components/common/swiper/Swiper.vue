@@ -1,14 +1,22 @@
 <template>
   <div id="hy-swiper">
-    <div class="swiper" @touchstart="touchStart" @touchmove="touchMove"
-      @touchend="touchEnd">
+    <div
+      class="swiper"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+    >
       <slot></slot>
     </div>
     <slot name="indicator"> </slot>
     <div class="indicator">
       <slot name="indicator" v-if="showIndicator && slideCount > 1">
-        <div v-for="(item, index) in slideCount" class="indi-item"
-          :class="{ active: index === currentIndex - 1 }" :key="index"></div>
+        <div
+          v-for="(item, index) in slideCount"
+          class="indi-item"
+          :class="{ active: index === currentIndex - 1 }"
+          :key="index"
+        ></div>
       </slot>
     </div>
   </div>
@@ -162,6 +170,7 @@ export default {
       this.currentX = e.touches[0].pageX;
       this.distance = this.currentX - this.startX;
       let currentPosition = -this.currentIndex * this.totalWidth;
+
       let moveDistance = this.distance + currentPosition;
 
       // 2.设置当前的位置
@@ -170,6 +179,7 @@ export default {
 
     touchEnd: function () {
       // 1.获取移动的距离
+
       let currentMove = Math.abs(this.distance);
 
       // 2.判断最终的距离
