@@ -1,5 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
-<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="homeswiper">
     <swiper>
@@ -21,7 +19,7 @@ export default {
   props: {
     banners: {
       type: Array,
-      default () {
+      default() {
         return [];
       },
     },
