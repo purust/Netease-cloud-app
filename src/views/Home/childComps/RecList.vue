@@ -55,40 +55,39 @@ export default {
   overflow-x: auto;
   .item {
     position: relative;
-    padding-right: 10px;
+    padding-right: 0.18rem;
     flex-shrink: 0;
-    font-size: 12px;
+    font-size: 0.2rem;
     img {
-      border-radius: 10px;
-      width: 110px;
-      height: 110px;
+      border-radius: 0.18rem;
+      width: 2.2rem;
+      height: 2.2rem;
     }
     .item-name {
-      width: 110px;
+      width: 2.2rem;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2; //多行在这里修改数字即可
+      -webkit-line-clamp: 2;
       overflow: hidden;
-      /* autoprefixer: ignore next */
       -webkit-box-orient: vertical;
     }
     .item-count {
       position: absolute;
-      right: 10px;
-      top: 5px;
+      right: 0.18rem;
+      top: 0.09rem;
 
-      width: 55px;
-      height: 18px;
-      line-height: 18px;
-      border-radius: 5px;
+      width: 1.2rem;
+      height: 0.3rem;
+      line-height: 0.3rem;
+      border-radius: 0.1rem;
 
-      font-size: 6px;
+      font-size: 0.2rem;
       text-align: center;
       background-color: rgba(181, 181, 181, 0.4);
       color: #fff;
       .iconfont {
-        font-size: 6px;
+        font-size: 0.2rem;
       }
     }
   }

@@ -14,23 +14,23 @@ export default {
 </script>
 <style lang="less" scoped>
 .top {
-  height: 30px;
-  margin-top: 20px;
-  margin-bottom: 5px;
+  height: 0.4rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.07rem;
   .title {
     color: #000;
     float: left;
-    font-size: 18px;
+    font-size: 0.28rem;
     font-weight: 700;
   }
   .more {
     float: right;
-    width: 65px;
-    height: 25px;
+    width: 1.2rem;
+    height: 0.4rem;
     border: 1px solid #b5b5b5;
-    border-radius: 12px;
-    font-size: 13px;
-    line-height: 25px;
+    border-radius: 0.2rem;
+    font-size: 0.2rem;
+    line-height: 0.4rem;
     text-align: center;
   }
 }

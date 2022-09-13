@@ -22,18 +22,22 @@
         </div>
       </div>
       <div
-        class="play-content"
+        class="image"
         v-show="!isShowLyric"
         @click="isShowLyric = !isShowLyric"
       >
-        <img
-          class="needle"
-          :class="{ active: !isPaused }"
-          src="~@/assets/img/needle-ab.png"
-          alt=""
-        />
-        <img class="circle" src="~@/assets/img/black-circle.png" alt="" />
-        <img class="musicImg" :src="musicDetail.al.picUrl" alt="" />
+        <div class="playneedle">
+          <img
+            class="needle"
+            :class="{ active: !isPaused }"
+            src="~@/assets/img/needle-ab.png"
+            alt=""
+          />
+        </div>
+        <div class="wholecircle">
+          <img class="circle" src="~@/assets/img/black-circle.png" alt="" />
+          <img class="musicImg" :src="musicDetail.al.picUrl" alt="" />
+        </div>
         <div class="iconlist">
           <i class="iconfont icon-xihuan"></i>
           <i class="iconfont icon-46"></i>
@@ -51,7 +55,7 @@
         <p
           :class="{
             active:
-              currentTime * 1000 > item.time &&
+              currentTime * 1000 >= item.time &&
               currentTime * 1000 <= item.nextTime,
           }"
           v-for="(item, index) in this.$store.getters.lyricList"
@@ -61,7 +65,7 @@
         </p>
       </div>
 
-      <div class="progress"></div>
+      <music-progress :currentTime="currentTime" :totalTime="totalTime" />
       <div class="bottom">
         <i class="iconfont icon-caozuo-xunhuan1"></i>
         <i class="iconfont icon-xiangzuo" @click="goplay(-1)"></i>
@@ -87,23 +91,23 @@
 <script>
 import { ref } from "vue";
 import { mapGetters, mapState } from "vuex";
+import MusicProgress from "components/common/musicprogress/MusicProgress";
 export default {
   name: "PlayMusic",
-  components: {},
+  components: { MusicProgress },
   props: ["musicDetail", "isPaused", "play"],
   emits: ["updateShowMusic", "updateShowList"],
   computed: {
     ...mapGetters["lyricList"],
-    ...mapState(["playlist", "playCurrentIndex", "currentTime"]),
+    ...mapState(["playlist", "playCurrentIndex", "currentTime", "totalTime"]),
   },
   watch: {
     currentTime() {
       // 监听，更改高度
       let p = document.querySelector("p.active");
+      let firstp = document.querySelector(".lyric>p").offsetTop;
       if (p) {
-        this.$refs.lyric.scrollTop = p.offsetTop - 220;
-        // console.log("当前歌词的p的值", p.offsetTop);
-        // console.log("列表的值", this.$refs.lyric.scrollTop);
+        this.$refs.lyric.scrollTop = p.offsetTop - firstp;
       }
     },
   },
@@ -121,7 +125,6 @@ export default {
 
       this.$store.commit("setPlayIndex", index);
       // 切换歌曲后刷新歌词的位置，刷新选中的标签
-      console.log("刷新歌词位置");
       this.$refs.lyric.scrollTop = 0;
       this.isActive = false;
     },
@@ -146,7 +149,6 @@ export default {
   setup() {
     // 是否显示歌词
     let isShowLyric = ref(false);
-    // 是否绑定p的style
 
     return {
       isShowLyric,
@@ -156,7 +158,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .play-music {
-  width: 100%;
+  width: 100vw;
 
   background-color: #ffffe0;
   .bgImg {
@@ -165,14 +167,11 @@ export default {
       z-index: 10;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background-size: auto 100%;
       background-position: center;
-      filter: blur(15px);
-      filter: contrast(6%);
-      // -webkit-filter: blur(15px);
-      // 图片周围泛白，放大图像
+      filter: contrast(60%) blur(15px);
       transform: scale(1.2);
     }
   }
@@ -181,45 +180,43 @@ export default {
     top: 0;
     left: 0;
     z-index: 99;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     color: #ffffe0;
     .play-top {
-      width: 100%;
-      height: 44px;
-      margin-top: 10px;
+      width: 100vw;
+      height: 0.7rem;
+      margin-top: 0.18rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .back {
-        margin-left: 10px;
+        margin-left: 0.18rem;
       }
       .share {
-        margin-right: 15px;
+        margin-right: 0.18rem;
       }
       .title {
-        .name {
-          width: 240px;
-          overflow: hidden;
-        }
+        flex: 1;
+        text-align: center;
       }
       .iconfont {
-        font-size: 25px;
+        font-size: 0.5rem;
       }
     }
-    .play-content {
-      height: 50%;
+    .image {
+      width: 100vw;
+      height: 78vh;
       text-align: center;
-      // white-space: nowrap;
 
       .needle {
-        // 防止被下面的musicImg挡着
-        position: relative;
+        // 防止被下面的圆圈挡着
         z-index: 10;
 
-        width: 110px;
+        width: 1.4rem;
         height: auto;
-        margin-left: 55px;
-        transform-origin: 10px 10px;
+        margin-left: 0.7rem;
+        transform-origin: 0.18rem 0.18rem;
         transform: rotate(-20deg);
         transition: all 1s;
         position: relative;
@@ -229,42 +226,48 @@ export default {
         position: relative;
         z-index: 10;
 
-        transform-origin: 10px 10px;
+        transform-origin: 0.18rem 0.18rem;
         transform: rotate(10deg);
         transition: all 1s;
       }
-      .circle {
-        margin-top: -60px;
-        width: 300px;
-        height: auto;
+      .playneedle {
+        height: 20vh;
       }
-      .musicImg {
-        position: absolute;
-        top: 229px;
-        left: 86px;
-        width: 200px;
-        height: auto;
-        border-radius: 50%;
-        // margin-top: -100px;
+      .wholecircle {
+        height: 55vh;
+        position: relative;
+        margin-top: -0.5rem;
+        .circle {
+          width: 5rem;
+          height: auto;
+        }
+        .musicImg {
+          position: absolute;
+          top: calc(5rem / 2 - 3rem / 2);
+          left: calc(50vw - 3rem / 2);
+          width: 3rem;
+          height: auto;
+          border-radius: 50%;
+        }
       }
       .iconlist {
-        width: 100%;
-        margin-top: 50px;
+        width: 100vw;
+        margin-bottom: 20vh;
         display: flex;
         justify-content: space-around;
         .iconfont {
-          font-size: 30px;
+          font-size: 0.55rem;
         }
       }
     }
     .lyric {
       position: relative;
-      height: 440px;
-      margin-top: 50px;
+      height: 73vh;
+      margin-top: 5vh;
       text-align: center;
       overflow: scroll;
-      padding-top: 220px;
-      padding-bottom: 220px;
+      padding-top: 36.5vh;
+      padding-bottom: 36.5vh;
       p {
         margin-bottom: 5px;
       }
@@ -278,15 +281,15 @@ export default {
       bottom: 10px;
       left: 0;
       width: 100%;
-      height: 55px;
-      line-height: 55px;
+      height: 10vh;
+      line-height: 10vh;
       display: flex;
       justify-content: space-around;
       .iconfont {
-        font-size: 30px;
+        font-size: 0.55rem;
       }
       .play {
-        font-size: 45px;
+        font-size: 0.55rem;
       }
     }
   }

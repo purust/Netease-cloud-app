@@ -37,7 +37,6 @@
 
 <script>
 import NavBar from "components/common/navbar/NavBar.vue";
-// import { reactive } from "vue";
 export default {
   name: "MusicNavBar",
   components: {
@@ -48,7 +47,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .head {
-  height: 44px;
+  height: 0.7rem;
 }
 .music-nav {
   position: fixed;
@@ -62,7 +61,7 @@ export default {
     height: 1.5em;
   }
   span {
-    padding: 8px;
+    padding: 0.3rem;
   }
   .active {
     color: #000;

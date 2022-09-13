@@ -59,40 +59,40 @@ export default {
 <style lang="less" scoped>
 .list-detail {
   background-color: #fff;
-  border-radius: 20px 20px 0 0;
+  border-radius: 0.32rem 0.32rem 0 0;
   .list-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 55px;
+    height: 0.9rem;
     text-align: center;
     .play {
-      margin-left: 10px;
+      margin-left: 0.18rem;
       .iconfont {
-        font-size: 20px;
+        font-size: 0.32rem;
       }
       .title {
-        margin-left: 5px;
-        font-size: 17px;
+        margin-left: 0.1rem;
+        font-size: 0.28rem;
         font-weight: 800;
         color: #000;
       }
       .count {
-        font-size: 13px;
+        font-size: 0.22rem;
       }
     }
     .subs {
-      width: 120px;
-      height: 40px;
-      margin-right: 6px;
-      border-radius: 20px;
+      width: 1.9rem;
+      height: 0.6rem;
+      margin-right: 0.08rem;
+      border-radius: 0.32rem;
 
-      line-height: 40px;
-      font-size: 13px;
+      line-height: 0.6rem;
+      font-size: 0.17rem;
       color: #fff;
       background-color: #ee2c2c;
       span {
-        margin-left: 3px;
+        margin-left: 0.02rem;
       }
     }
   }
@@ -101,14 +101,14 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 55px;
+      margin-bottom: 0.15rem;
       .left {
         text-align: center;
         .number {
           float: left;
-          width: 40px;
-          height: 40px;
-          line-height: 40px;
+          width: 0.82rem;
+          height: 0.82rem;
+          line-height: 0.82rem;
           margin: 0 auto;
         }
         .des {
@@ -116,44 +116,45 @@ export default {
           text-align: left;
 
           .name {
-            width: 260px; /*设置段落长度*/
-            white-space: nowrap; /*文本段落不换行*/
-            overflow: hidden; /*超出范围的隐藏*/
-            text-overflow: ellipsis; /*对文本溢出进行省略号处理*/
+            width: 5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
-            font-size: 15px;
+            font-size: 0.25rem;
             font-weight: 600;
             color: #000;
           }
           .info {
-            width: 260px; /*设置段落长度*/
-            white-space: nowrap; /*文本段落不换行*/
-            overflow: hidden; /*超出范围的隐藏*/
-            text-overflow: ellipsis; /*对文本溢出进行省略号处理*/
-            margin-top: 5px;
-            font-size: 10px;
+            width: 5.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 0.1rem;
+            font-size: 0.18rem;
             .tag {
               display: inline-block;
-              // width: 26px;
-              height: 15px;
+              width: fit-content;
+              height: fit-content;
+              padding: 0.01rem 0.02rem;
               border: 1px solid red;
-              border-radius: 3px;
-              // text-align: center;
-              font-size: 7px;
+              border-radius: 0.05rem;
+              text-align: center;
+              font-size: 0.1rem;
               color: red;
             }
           }
         }
       }
       .right {
-        height: 55px;
-        line-height: 55px;
+        height: 0.82rem;
+        line-height: 0.82rem;
         .more {
-          margin-left: 10pxd;
-          margin-right: 10px;
+          margin-left: 0.18rem;
+          margin-right: 0.18rem;
         }
         .iconfont {
-          font-size: 25px;
+          font-size: 0.45rem;
         }
       }
     }

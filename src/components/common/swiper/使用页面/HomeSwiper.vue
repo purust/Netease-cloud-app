@@ -28,11 +28,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// .homeswiper {
-//   // margin-top: 12px;
-// }
+.homeswiper {
+  margin-top: 12px;
+}
 img {
-  border-radius: 0.2rem;
+  border-radius: 8px;
   width: 100%;
   height: auto;
 }

@@ -7,7 +7,7 @@
 	--color-high-text: #e70012;
 	--color-tint: #ec4141;
 	--color-background: #fff;
-	--font-size: 14px;
+	--font-size: 0.25rem;
 	--line-height: 1.5;
 }
 
@@ -60,12 +60,4 @@ div::-webkit-scrollbar {
 	display: none;
 }
 
-.icon {
-	width: 1em;
-	height: 1em;
-	vertical-align: -0.15em;
-	fill: currentColor;
-	overflow: hidden;
-}
 
-input{border:none;outline:medium;}

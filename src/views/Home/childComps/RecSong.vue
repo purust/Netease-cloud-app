@@ -51,7 +51,7 @@ export default {
   },
   setup() {
     let data = reactive({
-      totalWidth: 337,
+      totalWidth: 95,
       currentIndex: 0,
       style: {},
       startX: 0,
@@ -62,7 +62,6 @@ export default {
      */
     function touchStart(e) {
       data.startX = e.touches[0].pageX;
-      // console.log("触摸开始", startX);
     }
     /**
      * 触摸结束事件
@@ -70,7 +69,6 @@ export default {
     function touchEnd(e, index) {
       data.endX = e.changedTouches[0].pageX;
       let moveX = data.endX - data.startX;
-      console.log("移动的距离", moveX);
       if (index == 0 && moveX < 0) {
         scrollContent(-(index + 1) * data.totalWidth);
       } else if (index == 3 && moveX > 0) {
@@ -88,11 +86,11 @@ export default {
       // 1.设置滚动动画
       data.style.transition = "transform " + 300 + "ms";
       // 2.设置滚动位置
-      data.style.transform = `translate3d(${currentPosition}px, 0, 0)`;
+      data.style.transform = `translate3d(${currentPosition}vw, 0, 0)`;
       data.style[
         "-webkit-transform"
-      ] = `translate3d(${currentPosition}px), 0, 0`;
-      data.style["-ms-transform"] = `translate3d(${currentPosition}px), 0, 0`;
+      ] = `translate3d(${currentPosition}vw), 0, 0`;
+      data.style["-ms-transform"] = `translate3d(${currentPosition}vw), 0, 0`;
     }
 
     onMounted(() => {
@@ -118,66 +116,63 @@ export default {
 }
 .song-list {
   display: flex;
-  // overflow-x: auto;
   .three-item {
-    width: 95%;
+    width: 95vw;
     flex-shrink: 0;
-    padding-right: 18px;
+    padding-right: 0.3rem;
   }
 }
 .item {
-  height: 60px;
+  height: 1.3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   .left {
     width: 16%;
     img {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
+      width: 1.1rem;
+      height: 1.1rem;
+      border-radius: 0.2rem;
     }
   }
   .right {
     width: 80%;
-    height: 60px;
-    // text-align: center;
-    // line-height: 60px;
+    height: 1.1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     .des {
       .title {
-        width: 210px;
+        width: 4.2rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         .song {
           color: #000;
-          font-size: 16px;
+          font-size: 0.3rem;
         }
       }
       .subtitle {
         width: fit-content;
-        padding: 2px 3px;
-        margin-top: 5px;
-        border-radius: 5px;
-        font-size: 6px;
+        padding: 0.05rem 0.08rem;
+        margin-top: 0.08rem;
+        border-radius: 0.08rem;
+        font-size: 0.2rem;
         color: #ffa54f;
         background-color: rgba(#ffa54f, 0.1);
       }
     }
     .play {
       .iconfont {
-        font-size: 20px;
+        font-size: 0.48rem;
       }
     }
   }
 }
-// 前两个有底部框线条
+// 前两个div有底部框线条
 .item:nth-child(-n + 2) {
   .right {
-    border-bottom: 1px solid #b5b5b5;
+    border-bottom: 0.02rem solid #b5b5b5;
   }
 }
 </style>

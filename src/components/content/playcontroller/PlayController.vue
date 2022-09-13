@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer" v-show="playlist[playCurrentIndex].al.picUrl">
     <div class="play-controller" v-show="playlist[playCurrentIndex].al.picUrl">
       <div class="left" @click="isShowMusic = !isShowMusic">
         <img :src="playlist[playCurrentIndex].al.picUrl" alt="" />
@@ -43,90 +43,83 @@
 </template>
 <script>
 import { getLyric } from "network/list";
-import { ref } from "vue";
-import { mapState } from "vuex";
+
+import { computed, ref, onUpdated, provide } from "vue";
+import { useStore } from "vuex";
+
 import PlayMusic from "../playmusic/PlayMusic.vue";
 import PlayList from "../playlist/PlayList.vue";
+
 export default {
   components: { PlayMusic, PlayList },
-  computed: {
-    ...mapState(["playlist", "playCurrentIndex", "lyric", "currentTime"]),
-  },
-  updated() {
-    // 获取歌词
-    if (this.playlist[this.playCurrentIndex].id) {
-      getLyric(this.playlist[this.playCurrentIndex].id).then((res) => {
-        this.$store.commit("setLyric", res.lrc.lyric);
-        // console.log("歌词", res.lrc.lyric);
-      });
-    }
-  },
-  methods: {
-    play() {
-      if (this.$refs.audio.paused) {
-        this.$refs.audio.play();
-        this.isPaused = false;
-        this.UpdateTime();
-      } else {
-        this.$refs.audio.pause();
-        this.isPaused = true;
-        clearInterval(this.$store.state.id);
-      }
-      // console.log([this.$refs.audio]);
-    },
-    UpdateTime() {
-      this.$store.state.id = setInterval(() => {
-        this.$store.commit("setCurrentTime", this.$refs.audio.currentTime);
-      }, 1000);
-    },
-  },
   setup() {
-    // 获取store值
-    // const store = useStore();
-    // 播放与暂停音乐
+    /**
+     * 获取当前歌曲的歌词
+     */
+    const store = useStore();
+    let playlist = computed(() => store.state.playlist);
+    let playCurrentIndex = computed(() => store.state.playCurrentIndex);
+    const setLyric = (x) => store.commit("setLyric", x);
+    onUpdated(() => {
+      if (playlist.value[playCurrentIndex.value].id) {
+        getLyric(playlist.value[playCurrentIndex.value].id).then((res) => {
+          setLyric(res.lrc.lyric);
+        });
+      }
+    });
+
+    /**
+     * 歌曲的播放与暂停
+     */
     const audio = ref(null);
     let isPaused = ref(true);
 
-    // function play () {
-    //   if (audio.value.paused) {
-    //     audio.value.play();
-    //     isPaused.value = false;
-    //     updateTime();
-    //   } else {
-    //     audio.value.pause();
-    //     isPaused.value = true;
-    //     // clearInterval(intervalID);
-    //   }
-    // }
+    function play() {
+      if (audio.value.paused) {
+        audio.value.play();
+        isPaused.value = false;
+        updateTime();
+        setTotalTime(audio.value.duration);
+      } else {
+        audio.value.pause();
+        isPaused.value = true;
+      }
+    }
 
-    // 更新播放时间
-    // function updateTime () {
-    //   // intervalID =
-
-    //   setInterval(() => {
-    //     store.commit("setCurrentTime", audio.value.currentTime);
-    //     console.log("当前播放时间", audio.value.currentTime);
-    //   }, 1000);
-    // }
+    /**
+     * 更新歌曲的时间
+     */
+    const setCurrentTime = (x) => store.commit("setCurrentTime", x);
+    function updateTime() {
+      setInterval(() => {
+        setCurrentTime(audio.value.currentTime);
+      }, 1000);
+    }
+    //获取歌词的总时间
+    const setTotalTime = (x) => store.commit("setTotalTime", x);
 
     // 是否显示歌词页面
     let isShowMusic = ref(false);
     // 是否显示歌词列表
     let isShowList = ref(false);
+    // 注入audio
+    provide("audio", audio);
     return {
       audio,
       isPaused,
-      // play,
       isShowMusic,
       isShowList,
-      // updateTime,
+      playlist,
+      playCurrentIndex,
+      play,
+      updateTime,
     };
   },
 };
 </script>
 <style lang="less" scoped>
 .footer {
-  height: 50px;
+  height: 0.85rem;
 }
 .play-controller {
   width: 100%;
@@ -134,47 +127,49 @@ export default {
   bottom: 0;
   left: 0;
 
-  height: 50px;
+  height: 0.85rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   background-color: #fff;
   .left {
+    width: 80vw;
     img {
       float: left;
-      margin-left: 5px;
-      width: 40px;
-      height: 40px;
+      margin-left: 0.08rem;
+      width: 0.68rem;
+      height: 0.68rem;
       border-radius: 50%;
       vertical-align: middle;
     }
     .song {
-      float: right;
-      margin-left: 10px;
+      float: left;
+      margin-left: 0.2rem;
       .name {
-        width: 200px; /*设置段落长度*/
-        white-space: nowrap; /*文本段落不换行*/
-        overflow: hidden; /*超出范围的隐藏*/
-        text-overflow: ellipsis; /*对文本溢出进行省略号处理*/
-        margin-top: 3px;
-        margin-bottom: 5px;
+        width: 4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 0.08rem;
+        margin-bottom: 0.02rem;
         color: #000;
-        font-size: 15px;
+        font-size: 0.25rem;
         font-weight: 700;
       }
       .tip {
-        font-size: 10px;
+        font-size: 0.16rem;
       }
     }
   }
   .right {
+    width: 20vw;
     .more {
-      margin-left: 10px;
-      margin-right: 10px;
+      margin-left: 0.18rem;
+      margin-right: 0.18rem;
     }
     .iconfont {
-      font-size: 23px;
+      font-size: 0.45rem;
     }
   }
 }

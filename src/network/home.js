@@ -1,6 +1,6 @@
 import { request } from "./request";
 
-// 轮播图图片
+// 轮播图
 export function getSwiperImage(type) {
   return request({
     url: "/banner",
@@ -27,12 +27,16 @@ export function getHome() {
     url: "/homepage/block/page",
   });
 }
-// 推荐歌的展示信息
+// 推荐歌曲的展示信息
 export class recSongItem {
   constructor(info) {
     this.imageUrl = info.uiElement.image.imageUrl;
     this.title = info.uiElement.mainTitle.title;
-    this.singer = info.resourceExtInfo.songData.artists[0].name;
+    // info.resourceExtInfo.songData.artists[0].name
+    this.singer =
+      info.resourceExtInfo.artists === undefined
+        ? null
+        : info.resourceExtInfo.artists[0].name;
     this.subtitle =
       info.uiElement.subTitle === undefined
         ? null

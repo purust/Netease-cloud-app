@@ -1,7 +1,6 @@
 <template>
   <div class="list-info">
     <img class="bg" :src="playlist.imgUrl" />
-    <list-nav-bar class="nav-bar" />
     <div class="info-top">
       <div class="image">
         <img :src="playlist.imgUrl" alt="" />
@@ -40,12 +39,9 @@
   </div>
 </template>
 <script>
-import ListNavBar from "./ListNavBar.vue";
 export default {
   name: "ListInfo",
-  components: {
-    ListNavBar,
-  },
+  components: {},
   props: {
     playlist: {
       type: Object,
@@ -71,47 +67,43 @@ export default {
 </script>
 <style lang="less" scoped>
 .list-info {
-  height: 270px;
+  height: 3.5rem;
   color: #ffffe0;
-
+  overflow: auto;
   .bg {
     position: fixed;
     left: 0;
     top: 0;
     z-index: -1;
     width: 100%;
-    height: 300px;
-    filter: blur(35px);
+    height: 4rem;
+    // 变得模糊和更暗
+    filter: blur(0.6rem) brightness(40%);
   }
-  // .nav-bar {
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  // }
-
   .info-top {
     position: relative;
-    height: 150px;
-    margin-top: 15px;
+    height: 2.38rem;
+    margin-top: 0.28rem;
+
     .image {
       float: left;
       img {
-        width: 125px;
-        height: 125px;
-        margin-left: 10px;
-        border-radius: 8px;
+        width: 2.2rem;
+        height: 2.2rem;
+        margin-left: 0.18rem;
+        border-radius: 0.16rem;
       }
     }
     .count {
       position: absolute;
-      left: 80px;
-      top: 5px;
+      left: 1rem;
+      top: 0.16rem;
 
-      width: 55px;
-      height: 18px;
-      line-height: 18px;
-      border-radius: 10px;
-      font-size: 5px;
+      width: 1.2rem;
+      height: 0.3rem;
+      line-height: 0.3rem;
+      border-radius: 0.18rem;
+      font-size: 0.15rem;
       text-align: center;
       background-color: rgba(181, 181, 181, 0.4);
       color: #fff;
@@ -121,19 +113,18 @@ export default {
     }
     .info {
       float: right;
-      width: 55%;
-      margin-right: 15px;
+      width: 60vw;
       .name {
-        margin-top: 2px;
-        font-size: 20px;
+        margin-top: 0.05rem;
+        font-size: 0.32rem;
       }
       .author {
-        margin-top: 12px;
-        margin-bottom: 12px;
+        margin-top: 0.18rem;
+        margin-bottom: 0.18rem;
         color: #cdcdb4;
         img {
-          width: 25px;
-          height: 25px;
+          width: 0.55rem;
+          height: 0.55rem;
           border-radius: 50%;
           vertical-align: middle;
         }
@@ -147,23 +138,22 @@ export default {
         /* autoprefixer: ignore next */
         -webkit-box-orient: vertical;
 
-        font-size: 12px;
+        font-size: 0.2rem;
         color: #cdcdb4;
       }
     }
   }
   .info-bottom {
     display: flex;
-    margin-bottom: 10px;
     justify-content: space-around;
-    font-size: 13px;
+    font-size: 0.22rem;
     .iconfont {
-      font-size: 20px;
+      font-size: 0.32rem;
     }
     .item {
       text-align: center;
       div {
-        margin-top: 3px;
+        margin-top: 0.05rem;
       }
     }
   }

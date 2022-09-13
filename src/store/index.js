@@ -6,6 +6,7 @@ export default createStore({
     playCurrentIndex: 0,
     lyric: "",
     currentTime: 0,
+    totalTime: 0,
   },
   // 类似store的计算属性,
   getters: {
@@ -45,7 +46,6 @@ export default createStore({
           item.nextTime = arr[index + 1].time;
         }
       });
-      // console.log(arr);
       return arr;
     },
   },
@@ -54,7 +54,6 @@ export default createStore({
       state.playlist = value;
     },
     setPlayIndex(state, value) {
-      // console.log("改变索引值");
       state.playCurrentIndex = value;
     },
     setLyric(state, value) {
@@ -63,9 +62,14 @@ export default createStore({
     setCurrentTime(state, value) {
       state.currentTime = value;
     },
+    setTotalTime(state, value) {
+      state.totalTime = value;
+    },
     addPlaySong(state, value) {
-      // 在当前播放的index前加入一个歌曲
       state.playlist.splice(state.playCurrentIndex, 0, value);
+    },
+    removeSong(state, value) {
+      state.playlist.splice(value, 1);
     },
   },
   actions: {},
