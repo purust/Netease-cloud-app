@@ -17,7 +17,7 @@ export function getLyric(id) {
     },
   });
 }
-
+// 歌单的介绍信息
 export class playlist {
   constructor(Info) {
     this.imgUrl = Info.coverImgUrl;
@@ -30,11 +30,21 @@ export class playlist {
     this.shareCount = Info.shareCount;
   }
 }
+// 歌曲的详细信息
+export class musicdetail {
+  constructor(Info) {
+    this.name = Info.al.name;
+    this.imgUrl = Info.al.picUrl;
+    this.singer = Info.ar[0].name;
+    this.id = Info.id;
+  }
+}
+// 歌单的所有歌曲信息
 export class listdetail {
   constructor(Info) {
     this.subsCount = Info.subscribedCount;
     this.total = Info.tracks.length;
-    this.tracks = Info.tracks;
+    this.tracks = Info.tracks.map((x) => new musicdetail(x));
     this.tags = Info.tags;
   }
 }

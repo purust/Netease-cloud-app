@@ -40,3 +40,17 @@ export function requestPost(config) {
   });
   return instance(config);
 }
+// 发送歌曲audio请求，会返回302状态码，此时不建议使用axios
+export function requestAudio(id) {
+  axios
+    .get("https://music.163.com/song/media/outer/url", {
+      params: {
+        id: `${id}.mp3`,
+      },
+    })
+    .then(() => {})
+    .catch((error) => {
+      console.log(error);
+      console.log("", error.response);
+    });
+}

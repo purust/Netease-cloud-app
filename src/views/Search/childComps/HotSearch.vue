@@ -7,6 +7,7 @@
         <span class="title">播放</span>
       </div>
     </div>
+
     <div :class="isShowHot ? 'detail' : ' default'">
       <div class="hotlist">
         <div
@@ -21,12 +22,12 @@
           </span>
         </div>
       </div>
-      <div
-        :class="isShowHot ? 'hint-more' : ' hint-fold'"
-        @click="isShowHot = !isShowHot"
-      >
-        {{ words }}
-      </div>
+    </div>
+    <div
+      :class="isShowHot ? 'hint-more' : ' hint-fold'"
+      @click="isShowHot = !isShowHot"
+    >
+      {{ words }}
     </div>
   </div>
 </template>
@@ -67,10 +68,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .top {
-  // width: 100%;
-  height: 44px;
-  margin-left: 10px;
-  margin-right: 10px;
+  height: 0.8rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
   border-bottom: 1px solid #cfcfcf;
 
   display: flex;
@@ -78,31 +78,31 @@ export default {
   align-items: center;
   .name {
     color: #000;
-    font-size: 17px;
+    font-size: 0.3rem;
     font-weight: 800;
   }
   .play {
-    height: 25px;
-    line-height: 25px;
-    padding-left: 10px;
-    padding-right: 10px;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
     border: 0.5px solid #b5b5b5;
-    border-radius: 20px;
+    border-radius: 0.2rem;
     color: #000;
     .title {
-      margin-left: 5px;
+      margin-left: 0.2rem;
     }
   }
 }
 .default {
-  height: 150px;
+  height: calc(3.5vh * 5);
   overflow-y: hidden;
 }
 .detail {
   overflow: visible;
 }
 .hotlist {
-  margin-left: 10px;
+  margin-left: 0.2rem;
   display: flex;
   flex-wrap: wrap;
   div:nth-child(-n + 3) {
@@ -115,31 +115,32 @@ export default {
     }
   }
   .list-item {
-    width: 50%;
-    height: 30px;
-    line-height: 30px;
+    width: 48vw;
+    height: 3.5vh;
+    line-height: 3vh;
     .index {
       display: inline-block;
-      width: 12%;
+      width: 12vw;
       font-weight: 600;
     }
     img {
-      width: 30px;
+      width: 0.33rem;
       height: auto;
-      margin-left: 5px;
+      margin-left: 0.08rem;
     }
   }
 }
+.hot-search {
+  position: relative;
+}
 .hint-fold {
   position: absolute;
-  top: 325px;
-  left: 50%;
-  margin-left: -45px;
+  top: 26.5vh;
+  left: 50vw;
 }
 .hint-more {
   position: absolute;
-  top: 465px;
-  left: 50%;
-  margin-left: -30px;
+  top: 44vh;
+  left: 50vw;
 }
 </style>

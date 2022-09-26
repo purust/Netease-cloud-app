@@ -51,15 +51,15 @@ export default {
 <style lang="less" scoped>
 .bg {
   // 三个值：上 左右 下
-  padding: 20px 20px 0;
+  padding: 0.3rem 0.3rem 0;
   background-color: rgba(207, 207, 207, 0.2);
 }
 .list {
-  border-radius: 10px;
+  border-radius: 0.2rem;
   background-color: #fff;
-  padding: 0 10px;
+  padding: 0 0.2rem;
   .top {
-    height: 50px;
+    height: 6vh;
     border-bottom: 0.5px solid #b5b5b5;
     display: flex;
     justify-content: space-between;
@@ -67,19 +67,22 @@ export default {
 
     .info {
       color: #000;
-      font-size: 17px;
+      font-size: 0.35rem;
       font-weight: 800;
     }
     .play {
-      height: 25px;
-      line-height: 25px;
-      padding-left: 10px;
-      padding-right: 10px;
+      height: 0.4rem;
+      line-height: 0.4rem;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
       border: 0.5px solid #b5b5b5;
-      border-radius: 20px;
+      border-radius: 0.2rem;
       color: #000;
       .title {
-        margin-left: 5px;
+        margin-left: 0.08rem;
+      }
+      .iconfont {
+        font-size: 0.23rem;
       }
     }
   }
@@ -89,47 +92,45 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 55px;
+    margin-bottom: 0.15rem;
     .des {
       float: left;
       text-align: left;
 
       .name {
-        width: 260px; /*设置段落长度*/
+        width: 60vw; /*设置段落长度*/
         white-space: nowrap; /*文本段落不换行*/
         overflow: hidden; /*超出范围的隐藏*/
         text-overflow: ellipsis; /*对文本溢出进行省略号处理*/
 
-        font-size: 15px;
+        font-size: 0.25rem;
         font-weight: 600;
         color: #000;
       }
       .info {
-        width: 260px; /*设置段落长度*/
+        width: 60vw; /*设置段落长度*/
         white-space: nowrap; /*文本段落不换行*/
         overflow: hidden; /*超出范围的隐藏*/
         text-overflow: ellipsis; /*对文本溢出进行省略号处理*/
-        margin-top: 5px;
-        font-size: 10px;
+        margin-top: 0.1rem;
+        font-size: 0.18rem;
         .tag {
           display: inline-block;
-          // width: 26px;
-          height: 15px;
+          height: fit-content;
           border: 1px solid red;
           border-radius: 3px;
-          // text-align: center;
-          font-size: 7px;
+          font-size: 0.08rem;
           color: red;
         }
       }
     }
 
     .icon {
-      width: 15%;
-      height: 55px;
-      line-height: 55px;
+      width: 15vw;
+      height: 0.82rem;
+      line-height: 0.82rem;
       .iconfont {
-        font-size: 25px;
+        font-size: 0.45rem;
       }
     }
   }

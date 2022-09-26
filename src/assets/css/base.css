@@ -59,5 +59,9 @@ a {
 div::-webkit-scrollbar {
 	display: none;
 }
+input{
+	border: 0;
+	outline: none;
+}
 
 

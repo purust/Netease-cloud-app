@@ -1,7 +1,7 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
   <div class="home">
-    <music-nav-bar />
+    <home-nav-bar/>
     <home-swiper :banners="data.banners">{{banners}}</home-swiper>
     <icon-list :iconList="data.iconList"/>
     <rec-list :recList="data.recList" />
@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import MusicNavBar from "components/content/MusicNavBar/MusicNavBar.vue";
-
+import HomeNavBar from "./childComps/NavBar.vue";
 import HomeSwiper from "./childComps/HomeSwiper.vue";
 import IconList from "./childComps/IconList.vue";
 import RecList from "./childComps/RecList.vue";
@@ -28,7 +27,7 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
   components: {
-    MusicNavBar,
+    HomeNavBar,
     HomeSwiper,
     IconList,
     RecList,

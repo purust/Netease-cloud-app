@@ -54,7 +54,15 @@ export default createStore({
       state.playlist = value;
     },
     setPlayIndex(state, value) {
-      state.playCurrentIndex = value;
+      let index = value;
+      // 当第一首歌向后时，索引值会变成负数，退到最后一首
+      if (index < 0) {
+        index = state.playlist.length - 1;
+      } // 当最后一首歌向前时，索引值会等于列表长度，前进到第一首
+      if (index == state.playlist.length) {
+        index = 0;
+      }
+      state.playCurrentIndex = index;
     },
     setLyric(state, value) {
       state.lyric = value;

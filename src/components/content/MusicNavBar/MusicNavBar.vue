@@ -1,78 +1,71 @@
 <template>
-  <div class="head">
-    <nav-bar class="music-nav">
-      <template v-slot:left>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-liebiao2"></use>
-        </svg>
-      </template>
-      <template v-slot:center>
-        <div class="center">
-          <span
-            :class="{ active: '/me' == $route.path }"
-            @click="$router.push('/me')"
-            >我的</span
-          >
-          <span
-            :class="{ active: '/home' == $route.path }"
-            @click="$router.push('/home')"
-            >发现</span
-          >
-          <span>云村</span>
-          <span>视频</span>
+  <div class="box">
+    <div class="nav-bar">
+      <div
+        class="item"
+        :class="{ active: '/home' == $route.path }"
+        @click="$router.push('/home')"
+      >
+        <div>
+          <i class="iconfont icon-faxian"></i>
         </div>
-      </template>
-      <template v-slot:right>
-        <svg
-          class="icon"
-          aria-hidden="true"
-          @click="$router.push({ path: '/search' })"
-        >
-          <use xlink:href="#icon-sousuo"></use>
-        </svg>
-      </template>
-    </nav-bar>
+        <span>发现</span>
+      </div>
+      <div
+        class="item"
+        :class="{ active: '/me' == $route.path }"
+        @click="$router.push({ path: '/me' })"
+      >
+        <div><i class="iconfont icon-yinle"></i></div>
+        <span>我的</span>
+      </div>
+      <div class="item">
+        <div><i class="iconfont icon-guanzhu"></i></div>
+        <span>关注</span>
+      </div>
+      <div class="item">
+        <div>
+          <i class="iconfont icon-shipin"></i>
+        </div>
+        <span>视频</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import NavBar from "components/common/navbar/NavBar.vue";
 export default {
   name: "MusicNavBar",
-  components: {
-    NavBar,
-  },
   setup() {},
 };
 </script>
 <style lang="less" scoped>
-.head {
-  height: 0.7rem;
+.box {
+  height: 1rem;
 }
-.music-nav {
+.nav-bar {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
+
+  width: 100vw;
+  height: 1rem;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   background-color: #fff;
-  z-index: 999;
   color: #676b6f;
-  .icon {
-    width: 1.5em;
-    height: 1.5em;
-  }
-  span {
-    padding: 0.3rem;
+  .item {
+    .iconfont {
+      font-size: 0.48rem;
+    }
+    span {
+      font-size: 0.2rem;
+    }
   }
   .active {
-    color: #000;
-    font-weight: bolder;
+    color: var(--color-high-text);
   }
-}
-.icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
 }
 </style>

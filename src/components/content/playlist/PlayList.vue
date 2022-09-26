@@ -15,7 +15,7 @@
           >
             <span class="name">{{ item.name }}</span
             >-
-            <span class="singer">{{ item.ar[0].name }}</span>
+            <span class="singer">{{ item.singer }}</span>
           </div>
           <div class="right" @click="removeSong(index)">
             <i class="iconfont icon-guanbi"></i>

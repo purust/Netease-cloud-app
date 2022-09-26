@@ -13,9 +13,6 @@ const routes = [
   {
     path: "/about",
     name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import("../views/AboutView.vue"),
   },
   {
@@ -37,32 +34,27 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("views/Login/Login.vue"),
-    // children: [
-    //   {
-    //     path: "cellphone",
-    //     component: () => import("views/Login/LoginByPhone.vue"),
-    //   },
-    // ],
+    meta: {
+      showNav: true,
+    },
   },
   {
     path: "/login/phone",
     component: () => import("views/Login/LoginByPhone.vue"),
+    meta: { showNav: true },
   },
   {
     path: "/login/sendcode",
     component: () => import("views/Login/VerCode.vue"),
+    meta: { showNav: true },
   },
   {
     path: "/me",
     name: "me",
     beforeEnter: (to, from, next) => {
-      // sessionStorage.setItem("isLogin", "true");
       if (sessionStorage.getItem("isLogin") == "true") {
         next();
-      }
-      // if (store.state.user.isLogin) {
-      // }
-      else {
+      } else {
         next({ path: "/login" });
       }
     },

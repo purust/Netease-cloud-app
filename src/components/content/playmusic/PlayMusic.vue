@@ -1,7 +1,7 @@
 <template>
   <div class="play-music">
     <div class="bgImg">
-      <img :src="musicDetail.al.picUrl" alt="" />
+      <img :src="musicDetail.imgUrl" alt="" @load="imgLoad" />
     </div>
     <div class="whole">
       <div class="play-top">
@@ -15,7 +15,7 @@
             </div>
           </div>
           <!--   -->
-          <div class="singer">{{ musicDetail.ar[0].name }}</div>
+          <div class="singer">{{ musicDetail.singer }}</div>
         </div>
         <div class="share">
           <i class="iconfont icon-fenxiang"></i>
@@ -36,7 +36,7 @@
         </div>
         <div class="wholecircle">
           <img class="circle" src="~@/assets/img/black-circle.png" alt="" />
-          <img class="musicImg" :src="musicDetail.al.picUrl" alt="" />
+          <img class="musicImg" :src="musicDetail.imgUrl" alt="" />
         </div>
         <div class="iconlist">
           <i class="iconfont icon-xihuan"></i>
@@ -51,6 +51,7 @@
         v-show="isShowLyric"
         @click="isShowLyric = !isShowLyric"
         ref="lyric"
+        @scroll="implFade"
       >
         <p
           :class="{
@@ -89,8 +90,8 @@
   </div>
 </template>
 <script>
-import { ref } from "vue";
-import { mapGetters, mapState } from "vuex";
+import { computed, onMounted, reactive, ref, watch } from "vue";
+import { mapGetters, mapState, useStore } from "vuex";
 import MusicProgress from "components/common/musicprogress/MusicProgress";
 export default {
   name: "PlayMusic",
@@ -102,28 +103,11 @@ export default {
     ...mapState(["playlist", "playCurrentIndex", "currentTime", "totalTime"]),
   },
   watch: {
-    currentTime() {
-      // 监听，更改高度
-      let p = document.querySelector("p.active");
-      let firstp = document.querySelector(".lyric>p").offsetTop;
-      if (p) {
-        this.$refs.lyric.scrollTop = p.offsetTop - firstp;
-      }
-    },
+    currentTime() {},
   },
   methods: {
     goplay(num) {
-      let index = this.playCurrentIndex + num;
-      // 当第一首歌向后时，索引值会变成负数，退到最后一首
-      if (index < 0) {
-        index = this.playlist.length - 1;
-      }
-      // 当最后一首歌向前时，索引值会等于列表长度，前进到第一首
-      if (index == this.playlist.length) {
-        index = 0;
-      }
-
-      this.$store.commit("setPlayIndex", index);
+      this.$store.commit("setPlayIndex", this.playCurrentIndex + num);
       // 切换歌曲后刷新歌词的位置，刷新选中的标签
       this.$refs.lyric.scrollTop = 0;
       this.isActive = false;
@@ -150,8 +134,39 @@ export default {
     // 是否显示歌词
     let isShowLyric = ref(false);
 
+    const store = useStore();
+    let currentTime = computed(() => store.state.currentTime);
+    let lyric = ref(null);
+    let state = reactive({});
+
+    onMounted(() => {
+      let firstp = document.querySelector(".lyric>p");
+      state.firstp = firstp;
+      state.fadeOutDom = firstp;
+    });
+    /**
+     * 监听时间的变化，滚动歌词
+     */
+    watch(currentTime, () => {
+      // 取激活的p元素
+      let p = document.querySelector("p.active");
+      let firstp = document.querySelector(".lyric>p");
+      // 滚动高度
+      if (p) {
+        lyric.value.scrollTop = p.offsetTop - firstp.offsetTop;
+      }
+    });
+
+    /**
+     * 监听背景图片的加载
+     */
+    function imgLoad() {}
     return {
       isShowLyric,
+      lyric,
+
+      state,
+      imgLoad,
     };
   },
 };
@@ -171,7 +186,7 @@ export default {
       height: 100vh;
       background-size: auto 100%;
       background-position: center;
-      filter: contrast(60%) blur(15px);
+      filter: contrast(50%) blur(15px) grayscale(50%);
       transform: scale(1.2);
     }
   }
@@ -262,17 +277,23 @@ export default {
     }
     .lyric {
       position: relative;
-      height: 73vh;
-      margin-top: 5vh;
+      // 和等于78vh，与对应的.image的heigth一样
+      height: 66vh;
+      margin-top: 6vh;
+      margin-bottom: 6vh;
       text-align: center;
       overflow: scroll;
-      padding-top: 36.5vh;
-      padding-bottom: 36.5vh;
+      padding-top: 33vh;
+      padding-bottom: 33vh;
+      color: rgba(#ffffe0, 0.5);
       p {
         margin-bottom: 5px;
+        transition: color 0.7s linear;
       }
       p.active {
-        color: red;
+        font-size: 0.38rem;
+        color: #ffffe0;
+        transition: color 0.7s linear;
       }
     }
 

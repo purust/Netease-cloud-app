@@ -27,7 +27,7 @@ import ListInfo from "./childComps/ListInfo.vue";
 import ListDeatil from "./childComps/ListDeatil.vue";
 
 import { getList } from "network/list.js";
-import { playlist, listdetail } from "network/list.js";
+import { playlist, listdetail, musicdetail } from "network/list.js";
 
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
@@ -52,7 +52,10 @@ export default {
         state.listdetail = new listdetail(res.playlist);
         state.playlist = new playlist(res.playlist);
         // 设置vuex播放列表，将当前歌单变为播放列表
-        store.commit("setPlaylist", res.playlist.tracks);
+        store.commit(
+          "setPlaylist",
+          res.playlist.tracks.map((x) => new musicdetail(x))
+        );
       });
     });
     return {

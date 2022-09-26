@@ -24,7 +24,7 @@
             <div class="name">{{ item.name }}</div>
             <div class="info">
               <span class="tag">{{ listdetail.tags[0] }}</span>
-              {{ item.ar[0].name }}-{{ item.al.name }}
+              {{ item.singer }}-{{ item.name }}
             </div>
           </div>
         </div>

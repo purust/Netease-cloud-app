@@ -59,24 +59,22 @@ export default {
 </script>
 <style lang="less" scoped>
 .search-top {
-  width: 100%;
-  height: 44px;
+  width: 100vw;
+  height: 0.8rem;
   display: flex;
-  // justify-content: space-between;
-  line-height: 44px;
+  line-height: 0.8rem;
   .back {
-    width: 10%;
-    margin-left: 10px;
-    // margin-right: 10px;
+    width: 10vw;
+    margin-left: 0.2rem;
     .iconfont {
-      font-size: 20px;
+      font-size: 0.4rem;
     }
   }
   .text {
-    width: 80%;
-    height: 40px;
+    width: 80vw;
+    height: 0.7rem;
     border-bottom: 2px solid #b5b5b5;
-    font-size: 18px;
+    font-size: 0.38rem;
     input::placeholder {
       color: #b5b5b5;
     }

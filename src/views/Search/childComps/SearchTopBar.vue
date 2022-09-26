@@ -50,7 +50,6 @@ export default {
       // 获取默认搜索关键字
       getDefaultKeyWord().then((res) => {
         state.placeholder = res.data.realkeyword;
-        // state.keyword = state.placeholder;
       });
     });
 
@@ -105,49 +104,47 @@ export default {
 </script>
 <style lang="less" scoped>
 .search-top {
-  width: 100%;
-  height: 44px;
-  margin-top: 10px;
+  width: 100vw;
+  height: 0.8rem;
+  margin-top: 0.2rem;
   display: flex;
-  // justify-content: space-between;
-  line-height: 44px;
+  line-height: 0.8rem;
   .back {
-    width: 10%;
-    margin-left: 10px;
-    // margin-right: 10px;
+    width: 10vw;
+    margin-left: 0.2rem;
     .iconfont {
-      font-size: 20px;
+      font-size: 0.4rem;
     }
   }
   .text {
-    width: 80%;
-    height: 40px;
+    width: 80vw;
+    height: 0.7rem;
     border-bottom: 2px solid #b5b5b5;
-    font-size: 17px;
+    font-size: 0.38rem;
     input::placeholder {
       color: #b5b5b5;
     }
   }
 }
 .history {
-  margin-left: 10px;
-  margin-bottom: 10px;
+  margin-left: 0.2rem;
+  margin-bottom: 0.2rem;
   .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .title {
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
       color: #000;
-      font-size: 17px;
+      font-size: 0.3rem;
       font-weight: 800;
     }
     .delete {
-      margin-right: 10px;
+      margin-right: 0.2rem;
       .iconfont {
-        font-size: 20px;
+        font-size: 0.3rem;
       }
     }
   }
@@ -157,12 +154,12 @@ export default {
     overflow-x: auto;
     .list-item {
       flex-shrink: 0;
-      height: 25px;
-      border-radius: 10px;
-      padding-left: 10px;
-      padding-right: 10px;
-      margin-right: 10px;
-      line-height: 25px;
+      height: 0.4rem;
+      border-radius: 0.2rem;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      margin-right: 0.2rem;
+      line-height: 0.4rem;
       background-color: rgba(207, 207, 207, 0.4);
     }
   }

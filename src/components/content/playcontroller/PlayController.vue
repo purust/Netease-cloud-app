@@ -1,8 +1,8 @@
 <template>
-  <div class="footer" v-show="playlist[playCurrentIndex].al.picUrl">
-    <div class="play-controller" v-show="playlist[playCurrentIndex].al.picUrl">
+  <div class="footer" v-show="playlist[playCurrentIndex].name">
+    <div class="play-controller">
       <div class="left" @click="isShowMusic = !isShowMusic">
-        <img :src="playlist[playCurrentIndex].al.picUrl" alt="" />
+        <img :src="playlist[playCurrentIndex].imgUrl" alt="" />
         <div class="song">
           <div class="name">{{ playlist[playCurrentIndex].name }}</div>
           <div class="tip">横滑可以切换上下首</div>
@@ -43,7 +43,6 @@
 </template>
 <script>
 import { getLyric } from "network/list";
-
 import { computed, ref, onUpdated, provide } from "vue";
 import { useStore } from "vuex";
 
@@ -54,17 +53,36 @@ export default {
   components: { PlayMusic, PlayList },
   setup() {
     /**
-     * 获取当前歌曲的歌词
+     * 获取当前歌曲的歌词和总时长
      */
     const store = useStore();
     let playlist = computed(() => store.state.playlist);
     let playCurrentIndex = computed(() => store.state.playCurrentIndex);
     const setLyric = (x) => store.commit("setLyric", x);
+    const setTotalTime = (x) => store.commit("setTotalTime", x);
     onUpdated(() => {
       if (playlist.value[playCurrentIndex.value].id) {
         getLyric(playlist.value[playCurrentIndex.value].id).then((res) => {
           setLyric(res.lrc.lyric);
+          setTotalTime(audio.value.duration);
         });
+        // TODO:检查音频是否能播放
+        // let xhr = new XMLHttpRequest();
+        // xhr.open(
+        //   "get",
+        //   `https://music.163.com/song/media/outer/url?id=${
+        //     playlist.value[playCurrentIndex.value].id
+        //   }.mp3`,
+        //   true
+        // );
+        // xhr.send();
+        // console.log("", xhr.getResponseHeader("Location"));
+        // xhr.onreadystatechange = function () {
+        //   console.log("", xhr);
+        //   if (xhr.readyState === 4) {
+        //     console.log("", xhr.status);
+        //   }
+        // };
       }
     });
 
@@ -79,7 +97,6 @@ export default {
         audio.value.play();
         isPaused.value = false;
         updateTime();
-        setTotalTime(audio.value.duration);
       } else {
         audio.value.pause();
         isPaused.value = true;
@@ -95,8 +112,6 @@ export default {
         setCurrentTime(audio.value.currentTime);
       }, 1000);
     }
-    //获取歌词的总时间
-    const setTotalTime = (x) => store.commit("setTotalTime", x);
 
     // 是否显示歌词页面
     let isShowMusic = ref(false);
@@ -124,7 +139,7 @@ export default {
 .play-controller {
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: 1rem;
   left: 0;
 
   height: 0.85rem;
