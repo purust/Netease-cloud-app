@@ -3,7 +3,7 @@
     <div class="nav-bar">
       <div
         class="item"
-        :class="{ active: '/home' == $route.path }"
+        :class="{ active: '/home' == $route.path || '/list' == $route.path }"
         @click="$router.push('/home')"
       >
         <div>

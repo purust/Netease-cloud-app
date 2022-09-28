@@ -1,11 +1,10 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="home">
-    <home-nav-bar/>
-    <home-swiper :banners="data.banners">{{banners}}</home-swiper>
-    <icon-list :iconList="data.iconList"/>
+    <home-nav-bar />
+    <home-swiper :banners="data.banners">{{ banners }}</home-swiper>
+    <icon-list :iconList="data.iconList" />
     <rec-list :recList="data.recList" />
-    <rec-song :recSong="data.recSong"/>
+    <rec-song :recSong="data.recSong" />
   </div>
 </template>
 
@@ -49,7 +48,7 @@ export default {
     });
     // 4.推荐歌曲的数据
     getHome().then((res) => {
-      let list = res.data.blocks[2].creatives;
+      let list = res.data.blocks[3].creatives;
       data.recSong = new Array();
       // 对取到的数据，使用class格式化，确保传入组件的数据只有一层结构
       for (let i = 0; i < list.length; i++) {

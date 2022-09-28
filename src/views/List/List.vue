@@ -101,7 +101,7 @@ export default {
   }
 }
 .whole {
-  height: calc(100vh - 0.7rem - 0.85rem);
+  height: calc(100vh - 0.7rem - 0.85rem - 1rem);
   overflow: scroll;
 }
 </style>
