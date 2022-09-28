@@ -3,12 +3,12 @@
 ---
 
 使用 vue3 全家桶和 axios 技术，开发出仿网易云音乐的 app，部分功能待完善
-<div style="width:100vw;  display: flex;   justify-content: space-around;">
-<img src="demo/show1.gif" >
-<img src="demo/show2.gif" >
-<img src="demo/show3.gif" >
-</div>
 
+<div style="width:100vw; float:left;"> 
+    <img src="demo/show1.gif" style="width: 30vw;margin-right:1vw" > 
+    <img src="demo/show2.gif" style="width: 30vw;margin-right:1vw" > 
+    <img src="demo/show3.gif" style="width: 30vw">
+</div>
 
 ## :chart_with_upwards_trend: 如何运行
 
