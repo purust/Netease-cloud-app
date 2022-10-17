@@ -1,6 +1,6 @@
 <template>
   <div class="footer" v-show="playlist[playCurrentIndex].name">
-    <div class="play-controller">
+    <div class="play-controller" :class="{ 'no-navbar': $route.meta.showNav }">
       <div class="left" @click="isShowMusic = !isShowMusic">
         <img :src="playlist[playCurrentIndex].imgUrl" alt="" />
         <div class="song">
@@ -135,6 +135,11 @@ export default {
 <style lang="less" scoped>
 .footer {
   height: 0.85rem;
+}
+
+// 绑定样式，当没有nav-bar时
+.no-navbar {
+  bottom: 0rem !important;
 }
 .play-controller {
   width: 100%;

@@ -24,11 +24,13 @@ const routes = [
     path: "/search",
     name: "search",
     component: () => import("views/Search/Search.vue"),
+    meta: { showNav: true },
   },
   {
     path: "/searchresult",
     name: "searchresult",
     component: () => import("views/Search/SearchResult.vue"),
+    meta: { showNav: true },
   },
   {
     path: "/login",
@@ -36,17 +38,18 @@ const routes = [
     component: () => import("views/Login/Login.vue"),
     meta: {
       showNav: true,
+      showControl: true,
     },
   },
   {
     path: "/login/phone",
     component: () => import("views/Login/LoginByPhone.vue"),
-    meta: { showNav: true },
+    meta: { showNav: true, showControl: true },
   },
   {
     path: "/login/sendcode",
     component: () => import("views/Login/VerCode.vue"),
-    meta: { showNav: true },
+    meta: { showNav: true, showControl: true },
   },
   {
     path: "/me",

@@ -22,6 +22,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 import { sendAuthCode } from "network/login.js";
+import { debounce } from "common/const.js";
 
 export default {
   name: "LoginByPhone",
@@ -30,7 +31,8 @@ export default {
 
     // 绑定input的账号信息
     let phone = ref(null);
-    function sendCode() {
+    // 发送网络请求
+    function request() {
       sendAuthCode(phone.value).then((res) => {
         if (res.data.code === 200) {
           router.push({
@@ -39,6 +41,9 @@ export default {
           });
         }
       });
+    }
+    function sendCode() {
+      debounce(request)();
     }
     return {
       phone,

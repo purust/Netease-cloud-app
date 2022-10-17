@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view></router-view>
-    <play-controller v-if="!$route.meta.showNav" />
+    <play-controller v-if="!$route.meta.showControl" />
     <music-nav-bar v-if="!$route.meta.showNav" />
   </div>
 </template>

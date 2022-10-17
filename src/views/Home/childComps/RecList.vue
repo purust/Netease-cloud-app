@@ -1,7 +1,7 @@
 <template>
   <div class="rec-list">
     <SubareaTop :title="'发现好歌单'" />
-    <div class="list">
+    <div class="list" @scroll="listScroll">
       <router-link
         :to="{ path: '/list', query: { id: item.id } }"
         class="item"
@@ -9,7 +9,7 @@
         :key="index"
       >
         <div class="item-img">
-          <img :src="item.picUrl" alt="" />
+          <img :data-src="item.picUrl" alt="" ref="img" />
         </div>
         <div class="item-count">
           <i class="iconfont icon-24gl-play"></i>
@@ -22,7 +22,9 @@
 </template>
 <script>
 import SubareaTop from "components/content/subareatop/SubareaTop.vue";
-
+import { ref } from "@vue/reactivity";
+import { imageLazyload, throffle } from "common/const.js";
+import { onUpdated } from "@vue/runtime-core";
 export default {
   name: "RecList",
   props: {
@@ -43,8 +45,20 @@ export default {
       let format_value = Math.floor(value / Math.pow(k, i));
       return `${format_value}${units[i - 1]}`;
     }
+    let img = ref();
+
+    onUpdated(() => {
+      //在首次进入时加载图片
+      imageLazyload(img.value, window.innerWidth);
+    });
+    // 监听列表滚动，懒加载图片
+    function listScroll() {
+      throffle(imageLazyload(img.value, window.innerWidth));
+    }
     return {
       numberFormat,
+      listScroll,
+      img,
     };
   },
 };
